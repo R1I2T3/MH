@@ -1,26 +1,31 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
-export default function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState("");
+const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState('');
 
-  const handleSearch = () => {
-    if (query) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
       onSearch(query);
     }
   };
 
   return (
-    <div className="flex mb-4">
-      <input
+    <form onSubmit={handleSubmit} className="flex w-full max-w-2xl gap-2">
+      <Input
         type="text"
+        placeholder="Ask about any stock (e.g., 'What's the sentiment for AAPL?')"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search stocks"
-        className="border p-2 rounded flex-grow"
+        className="flex-1"
       />
-      <button onClick={handleSearch} className="ml-2 px-4 py-2 bg-blue-500 text-white rounded">
+      <Button type="submit">
         Search
-      </button>
-    </div>
+      </Button>
+    </form>
   );
-}
+};
+
+export default SearchBar;
