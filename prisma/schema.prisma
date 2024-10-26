@@ -12,7 +12,6 @@ model User {
   email       String   @unique
   username    String   @unique
   queryLimit  Int      @default(20)
-  queries     Query[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -21,8 +20,6 @@ model Query {
   id           String   @id @default(cuid())
   queryText    String
   responseData Json?
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
   createdAt    DateTime @default(now())
 }
 
